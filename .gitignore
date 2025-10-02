@@ -3,3 +3,6 @@ venv/
 ENV/
 env/
 .venv/
+
+# Variables de entorno
+.env

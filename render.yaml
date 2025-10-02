@@ -1,8 +1,10 @@
 services:
   - type: web
-    name: extraer-video-api
+    name: extraervideo
     runtime: docker
     dockerfilePath: ./Dockerfile
+    customDomains:
+      - name: extraervideo.onrender.com
     envVars:
       - key: GEMINI_API_KEY
         sync: false  # Set this in Render dashboard
