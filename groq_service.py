@@ -147,17 +147,20 @@ def generate_cv_profile(transcription, profile_dict):
 
     prompt = (
         "Con base en la siguiente transcripción de un video de presentación personal y la información extraída del perfil, "
-        "redacta un perfil profesional completo y atractivo para una hoja de vida. El perfil debe ser en español, "
-        "profesional, persuasivo y formal, escrito en tercera persona, conciso pero informativo, como un resumen ejecutivo impactante para un currículum vitae. "
-        "Estructúralo en uno o dos párrafos conectados, integrando toda la información relevante de manera natural, fluida y coherente, "
-        "usando conectores lógicos y transiciones suaves. Comienza con el nombre, profesión y experiencia clave, luego educación, tecnologías, idiomas, logros y habilidades blandas si están disponibles. "
-        "Hazlo sonar motivador y profesional, destacando fortalezas y potencial.\n\n"
+        "redacta un perfil profesional optimizado para una hoja de vida en el estilo de resúmenes ejecutivos concisos y impactantes. El perfil debe ser en español, "
+        "profesional y formal, escrito en tercera persona impersonal (sin mencionar el nombre al inicio), estructurado en párrafos cortos y enfocados. "
+        "Sigue esta estructura aproximada: "
+        "- Primer párrafo: Profesión y experiencia clave, destacando especialidades y áreas de dominio. "
+        "- Segundo párrafo: Formación académica y conocimientos técnicos/tecnologías. "
+        "- Tercer párrafo: Capacidades, idiomas y habilidades blandas. "
+        "- Cuarto párrafo: Reconocimientos, logros y compromiso profesional. "
+        "Usa frases impactantes, lenguaje persuasivo y evita redundancias. Integra toda la información relevante de manera coherente.\n\n"
         f"Transcripción: {transcription}\n\n"
         f"Información extraída: {json.dumps(profile_dict, ensure_ascii=False)}\n\n"
-        "Ejemplo mejorado: 'Elier Fernando Rosero Bravo es un Contador Público altamente experimentado con más de 5 años de trayectoria en el sector contable y docente. Posee una Maestría en Gerencia y Auditoría Tributaria, y actualmente se especializa en Ingeniería de Software. Domina tecnologías como Python, Laravel y Spring Boot, además de hablar español nativo e inglés básico. Se destaca por su capacidad para el trabajo en equipo y su compromiso con la excelencia profesional.'\n\n"
-        "Si algún dato no está disponible o es 'No especificado', intégralo de manera que suene natural o omítelo si no es esencial. "
-        "No uses formato Markdown, placeholders como '(Por favor, añadir...)' ni texto adicional fuera del perfil. "
-        "El perfil debe ser objetivo, profesional y atractivo para reclutadores."
+        "Ejemplo de estilo: 'Físico Nuclear con sólida experiencia en fisión nuclear, seguridad de plantas y análisis de riesgos operativos. Formación en Ingeniería Nuclear, con dominio de procesos de energía nuclear, control radiológico y sistemas de protección. Capacidad comprobada para trabajar en entornos multidisciplinarios y colaborar en proyectos internacionales gracias a la fluidez en francés y ruso. Reconocido por su escucha activa, comunicación efectiva y disposición al aprendizaje continuo. Comprometido con la excelencia técnica, la innovación científica y la seguridad operacional, orientado a contribuir al desarrollo y mejora de proyectos en el sector energético y nuclear.'\n\n"
+        "Si algún dato no está disponible o es 'No especificado', intégralo sutilmente o omítelo si no aporta valor. "
+        "No uses formato Markdown, placeholders ni texto adicional fuera del perfil. "
+        "El perfil debe ser conciso, persuasivo y adecuado para un CV profesional."
     )
 
     try:
