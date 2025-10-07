@@ -89,12 +89,12 @@ def extract_profile(text):
         "- nombre: El nombre de la persona\n"
         "- profesion: La ocupación actual, cargo o especialidad mencionada\n"
         "- experiencia: Áreas o temas en los que tiene práctica laboral o conocimiento aplicado\n"
-        "- educacion: Títulos, grados, estudios o formación académica\n"
+        "- educacion: Títulos, grados, estudios o formación académica. Si no se menciona explícitamente, infiérelo lógicamente de la profesión (ej. si es 'Contador Público', educación podría ser 'Contaduría Pública'; si es 'Ingeniero de Software', 'Ingeniería de Software')\n"
         "- tecnologias: Herramientas, softwares, lenguajes o técnicas específicas mencionadas\n"
         "- idiomas: Lista de idiomas hablados o entendidos\n"
         "- logros: Reconocimientos, hitos o aportes relevantes\n"
         "- habilidades_blandas: Habilidades sociales o personales\n\n"
-        "Si algún campo no está presente en el texto, usa 'No especificado'.\n\n"
+        "Si algún campo no está presente en el texto y no puede inferirse, usa 'No especificado'.\n\n"
         f"Texto a analizar:\n{text}\n\n"
         "Responde SOLO con el JSON, sin texto adicional."
     )
@@ -147,13 +147,17 @@ def generate_cv_profile(transcription, profile_dict):
 
     prompt = (
         "Con base en la siguiente transcripción de un video de presentación personal y la información extraída del perfil, "
-        "redacta un perfil profesional completo y bien estructurado para una hoja de vida. El perfil debe ser en español, "
-        "profesional, conciso pero informativo, y organizado en secciones claras como: Introducción, Experiencia Profesional, "
-        "Educación, Tecnologías y Habilidades, Idiomas, Logros, y Habilidades Blandas.\n\n"
+        "redacta un perfil profesional completo y atractivo para una hoja de vida. El perfil debe ser en español, "
+        "profesional, persuasivo y formal, escrito en tercera persona, conciso pero informativo, como un resumen ejecutivo impactante para un currículum vitae. "
+        "Estructúralo en uno o dos párrafos conectados, integrando toda la información relevante de manera natural, fluida y coherente, "
+        "usando conectores lógicos y transiciones suaves. Comienza con el nombre, profesión y experiencia clave, luego educación, tecnologías, idiomas, logros y habilidades blandas si están disponibles. "
+        "Hazlo sonar motivador y profesional, destacando fortalezas y potencial.\n\n"
         f"Transcripción: {transcription}\n\n"
         f"Información extraída: {json.dumps(profile_dict, ensure_ascii=False)}\n\n"
-        "El perfil debe sonar natural, como si fuera escrito por la persona misma, y adaptado para un currículum vitae. "
-        "No incluyas encabezados genéricos ni texto adicional fuera del perfil."
+        "Ejemplo mejorado: 'Elier Fernando Rosero Bravo es un Contador Público altamente experimentado con más de 5 años de trayectoria en el sector contable y docente. Posee una Maestría en Gerencia y Auditoría Tributaria, y actualmente se especializa en Ingeniería de Software. Domina tecnologías como Python, Laravel y Spring Boot, además de hablar español nativo e inglés básico. Se destaca por su capacidad para el trabajo en equipo y su compromiso con la excelencia profesional.'\n\n"
+        "Si algún dato no está disponible o es 'No especificado', intégralo de manera que suene natural o omítelo si no es esencial. "
+        "No uses formato Markdown, placeholders como '(Por favor, añadir...)' ni texto adicional fuera del perfil. "
+        "El perfil debe ser objetivo, profesional y atractivo para reclutadores."
     )
 
     try:
