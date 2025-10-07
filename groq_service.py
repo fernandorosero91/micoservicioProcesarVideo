@@ -1,4 +1,5 @@
 import os
+import json
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -138,3 +139,25 @@ def extract_profile(text):
             "logros": "No especificado",
             "habilidades_blandas": "No especificado"
         }, ensure_ascii=False)
+
+def generate_cv_profile(transcription, profile_dict):
+    """Genera un perfil profesional para hoja de vida usando Gemini AI"""
+    if not GEMINI_AVAILABLE:
+        return "ADVERTENCIA: Google Generative AI no esta instalado. Instala con: pip install google-generativeai"
+
+    prompt = (
+        "Con base en la siguiente transcripción de un video de presentación personal y la información extraída del perfil, "
+        "redacta un perfil profesional completo y bien estructurado para una hoja de vida. El perfil debe ser en español, "
+        "profesional, conciso pero informativo, y organizado en secciones claras como: Introducción, Experiencia Profesional, "
+        "Educación, Tecnologías y Habilidades, Idiomas, Logros, y Habilidades Blandas.\n\n"
+        f"Transcripción: {transcription}\n\n"
+        f"Información extraída: {json.dumps(profile_dict, ensure_ascii=False)}\n\n"
+        "El perfil debe sonar natural, como si fuera escrito por la persona misma, y adaptado para un currículum vitae. "
+        "No incluyas encabezados genéricos ni texto adicional fuera del perfil."
+    )
+
+    try:
+        response = model.generate_content(prompt)
+        return response.text.strip()
+    except Exception as e:
+        return f"Error al generar perfil profesional: {str(e)}"

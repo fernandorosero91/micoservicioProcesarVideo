@@ -5,7 +5,7 @@ import subprocess
 import tempfile
 import os
 import json
-from groq_service import transcribe_audio, extract_profile
+from groq_service import transcribe_audio, extract_profile, generate_cv_profile
 
 app = FastAPI()
 
@@ -29,7 +29,7 @@ async def get_upload_form():
             <h3>📋 Esta API devuelve respuestas en formato JSON</h3>
             <p>La aplicación procesa videos y devuelve:</p>
             <pre>{
-  "transcripcion": "Texto transcrito del video",
+  "transcripcion": "Perfil profesional redactado para hoja de vida",
   "perfil": {
     "nombre": "Nombre extraído",
     "profesion": "Profesión/ocupación",
@@ -80,13 +80,16 @@ async def upload_video(file: UploadFile = File(...)):
         except json.JSONDecodeError:
             profile = {"error": "No se pudo parsear el perfil JSON", "raw": profile_json}
 
+        # 5. Generar perfil profesional para hoja de vida
+        cv_profile = generate_cv_profile(transcription, profile)
+
         # Limpiar archivos temporales
         os.unlink(temp_video)
         os.unlink(audio_file)
 
         # Crear respuesta JSON
         response_data = {
-            "transcripcion": transcription,
+            "transcripcion": cv_profile,
             "perfil": profile
         }
 
