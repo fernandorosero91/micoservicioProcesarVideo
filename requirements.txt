@@ -5,3 +5,4 @@ python-multipart
 openai
 python-dotenv
 google-generativeai
+groq
